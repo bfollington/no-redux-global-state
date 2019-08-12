@@ -1,3 +1,22 @@
+# Redux-Free CRA + Typescript
+
+This is a proof-of-concept project to explore a replacement for my previous stack, which consisted of:
+
+- `create-react-app` (Typescript)
+- State: `redux`
+- Side effects: `redux-saga`
+
+This new project aims to replace redux and leverage the power of hooks instead. We now use:
+
+- `create-react-app` (Typescript)
+- State: `useReducer` + `useContext`
+- Side effects: custom `useEvents` hook, powered by `rxjs`
+  - Inspired by `redux-observable`, but without the `redux`
+  
+State management is almost directly lifted from Kent C. Dodds' approach: https://kentcdodds.com/blog/application-state-management-with-react
+  
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
