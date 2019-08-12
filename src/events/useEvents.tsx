@@ -6,8 +6,7 @@ import {
   useEffect
 } from "react";
 import { from, Observable, Subject } from "rxjs";
-
-type Event = "counter/reached-10" | "woah-nelly";
+import { Event } from "./events";
 
 type EventContextValue = {
   $events: Observable<Event>;
