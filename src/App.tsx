@@ -1,10 +1,10 @@
-import React from "react";
-import "./App.css";
-import Counter from "./counter/Counter";
-import CounterDisplay from "./counter/CounterDisplay";
-import { CounterProvider } from "./counter/counterState";
-import EventLogger from "./events/EventLogger";
-import { EventProvider } from "./events/useEvents";
+import React from 'react'
+import './App.css'
+import Counter from './counter/Counter'
+import CounterDisplay from './counter/CounterDisplay'
+import { CounterProvider } from './counter/counterState'
+import EventLogger from './events/EventLogger'
+import { EventProvider } from './events/useEvents'
 
 const App: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const App: React.FC = () => {
         </header>
       </div>
     </EventProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -1,1 +1,1 @@
-export type Event = "counter/reached-10" | "woah-nelly";
+export type Event = 'counter/reached-10' | 'woah-nelly'

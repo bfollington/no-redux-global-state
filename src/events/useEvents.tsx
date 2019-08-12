@@ -3,59 +3,59 @@ import {
   default as React,
   useContext,
   useMemo,
-  useEffect
-} from "react";
-import { from, Observable, Subject } from "rxjs";
-import { Event } from "./events";
+  useEffect,
+} from 'react'
+import { from, Observable, Subject } from 'rxjs'
+import { Event } from './events'
 
 type EventContextValue = {
-  $events: Observable<Event>;
-  emit: (e: Event) => void;
-};
+  $events: Observable<Event>
+  emit: (e: Event) => void
+}
 
 const EventContext = createContext<EventContextValue>({
   $events: from([] as Event[]),
-  emit: e => {}
-});
+  emit: e => {},
+})
 
 export const useEvents = () => {
-  const context = useContext(EventContext);
+  const context = useContext(EventContext)
 
   if (!context) {
-    throw new Error(`useCounter must be used within a CounterProvider`);
+    throw new Error(`useCounter must be used within a CounterProvider`)
   }
 
-  return context;
-};
+  return context
+}
 
 export const EventProvider = (props: any) => {
   const value = useMemo(() => {
-    const subject = new Subject<Event>();
+    const subject = new Subject<Event>()
 
     return {
       $events: subject,
       emit: (v: Event) => {
-        subject.next(v);
-      }
-    };
-  }, []);
+        subject.next(v)
+      },
+    }
+  }, [])
 
-  return <EventContext.Provider value={value} {...props} />;
-};
+  return <EventContext.Provider value={value} {...props} />
+}
 
 // For listening to the event stream and acting accordingly
 export const useSideEffect = (
   f: (e$: Observable<Event>, emit: (e: Event) => void) => Observable<Event>
 ) => {
-  const { $events, emit } = useEvents();
+  const { $events, emit } = useEvents()
 
   useEffect(() => {
-    const sub = f($events, emit).subscribe();
-    console.warn("SUBBED TO STREAM");
+    const sub = f($events, emit).subscribe()
+    console.warn('SUBBED TO STREAM')
 
     return () => {
-      sub.unsubscribe();
-      console.warn("UNSUBBED FROM STREAM");
-    };
-  }, [f, emit, $events]);
-};
+      sub.unsubscribe()
+      console.warn('UNSUBBED FROM STREAM')
+    }
+  }, [f, emit, $events])
+}
