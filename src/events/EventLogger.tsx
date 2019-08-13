@@ -14,6 +14,15 @@ const EventLogger = () => {
     )
   )
 
+  useSideEffect(($e, _, waitFor) =>
+    $e.pipe(
+      ofType('counter/reached-10'),
+      waitFor('woah-nelly'),
+      delay(1000),
+      tap(x => alert('it all done'))
+    )
+  )
+
   return <></>
 }
 

@@ -5,8 +5,9 @@ import {
   useMemo,
   useEffect,
 } from 'react'
-import { from, Observable, Subject } from 'rxjs'
+import { from, Observable, Subject, OperatorFunction } from 'rxjs'
 import { Event } from './events'
+import { waitFor } from './operators'
 
 type EventContextValue = {
   $events: Observable<Event>
@@ -45,12 +46,17 @@ export const EventProvider = (props: any) => {
 
 // For listening to the event stream and acting accordingly
 export const useSideEffect = (
-  f: (e$: Observable<Event>, emit: (e: Event) => void) => Observable<Event>
+  f: (
+    e$: Observable<Event>,
+    emit: (e: Event) => void,
+    waitFor: (e: Event) => OperatorFunction<unknown, Event>
+  ) => Observable<Event>
 ) => {
   const { $events, emit } = useEvents()
 
   useEffect(() => {
-    const sub = f($events, emit).subscribe()
+    const w = waitFor($events)
+    const sub = f($events, emit, w).subscribe()
     console.warn('SUBBED TO STREAM')
 
     return () => {
